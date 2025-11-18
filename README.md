@@ -17,7 +17,7 @@ O projeto foi construído com as seguintes ferramentas e tecnologias, muitas das
 
 ## 🚀 Como Começar
 1. Clone ou baixe os arquivos do projeto para sua máquina local.
-2. Abra o arquivo index.html no seu navegador.
+2. Abra o arquivo `index.html` no seu navegador.
 3. Não é necessária configuração adicional — todas as dependências externas são carregadas via CDN.
 
 ## 🎥 Link do Vídeo de Estudo
