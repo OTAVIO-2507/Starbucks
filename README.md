@@ -23,4 +23,4 @@ O projeto foi construído com as seguintes ferramentas e tecnologias, muitas das
 ## 🎥 Link do Vídeo de Estudo
 Este projeto foi desenvolvido como parte de um estudo e aperfeiçoamento das técnicas de desenvolvimento Front-end, baseado no tutorial da Larissa Kich:
 Vídeo: "Como fazer uma Landing Page com HTML, CSS e JavaScript | Mobile First"
-**[Link do Vídeo]: (https://www.youtube.com/watch?v=ik-njdH5Q5c)**
+**[Estudo Larissa Kich - YouTube](https://www.youtube.com/watch?v=ik-njdH5Q5c)**
