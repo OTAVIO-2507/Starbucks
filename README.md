@@ -2,7 +2,7 @@
 Uma landing page responsiva com o tema Starbucks, construída com HTML, CSS e JavaScript. O projeto foi desenvolvido seguindo a metodologia Mobile First e apresenta um design limpo, com animações suaves e customizadas que foram adicionadas utilizando CSS e JavaScript.
 
 ## 🌐 Visualize o projeto:
-**[Ver Projeto Online](https://otavio-2507.github.io/Starbucks/)**
+**[Ver Projeto Online]()**
 
 ## 🛠️ Tecnologias Utilizadas
 O projeto foi construído com as seguintes ferramentas e tecnologias, muitas das quais foram carregadas via CDN:
