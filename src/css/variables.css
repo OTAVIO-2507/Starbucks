@@ -1,18 +1,36 @@
-:root{
+:root {
+    /* Neutrals - Sophisticated Grayscale */
     --color-neutral-0: #ffffff;
-    --color-neutral-1: #eee4db;
-    --color-neutral-2: #d4c3b6;
-    --color-neutral-3: #b8a99e;
-    --color-neutral-4: #9e8f85;
-    --color-neutral-5: #7e6e65;
-    --color-neutral-6: #5e4e45;
-    --color-neutral-7: #3e2e25;
-    --color-neutral-8: #1e0e05;
+    --color-neutral-1: #f7f3f0;
+    /* Light cream */
+    --color-neutral-2: #e9e0d9;
+    --color-neutral-3: #d1c1b5;
+    --color-neutral-4: #a89385;
+    --color-neutral-5: #7c6a5e;
+    --color-neutral-6: #54463d;
+    --color-neutral-7: #2d241f;
+    --color-neutral-8: #1a1614;
     --color-neutral-9: #000000;
 
-    --color-primary-1: #34815d;
-    --color-primary-2: #2c6e4f;
-    --color-primary-3: #245c42;
+    /* Starbucks Greens - Vibe Brewora */
+    --color-primary-1: #00704a;
+    --color-primary-2: #005a3c;
+    --color-primary-3: #1e3932;
+    --color-vibrant-green: #0a4d34;
+    /* Darker green for hero background */
 
-    --color-secundary-1: #f5c518;
+    /* Accents */
+    --color-secundary-1: #d4ad66;
+    /* Elegant Gold/Brass */
+    --color-accent-red: #c82333;
+
+    /* Effects */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    --premium-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --transition-standard: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Spacing */
+    --section-padding: 80px 4%;
 }

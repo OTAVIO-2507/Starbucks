@@ -108,6 +108,16 @@ document.addEventListener('DOMContentLoaded', function() {
         sectionObserver.observe(section);
     });
 
+    // Efeito de Header no Scroll
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
     // OBS: O bloco de código abaixo sobre novidades ('novidadeObserver') parece ser redundante com o 'sectionObserver' acima.
     // Ele foi mantido aqui, mas em um projeto real, você usaria apenas o 'sectionObserver' para todas as seções.
     const novidadesSection = document.querySelector('#products');
@@ -125,4 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // novidadeObserver.observe(novidadesSection); // Linha comentada pois já é observada pelo sectionObserver
+
+    // Filtros são apenas ilustrativos - sem funcionalidade
 });
