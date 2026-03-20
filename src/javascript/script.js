@@ -86,17 +86,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // IntersectionObserver para o efeito de surgimento (Adiciona a classe 'visible')
+    // Histerese: aparece com 20% visível, some com ≤10% visível.
+    // O gap entre 10% e 20% evita o flickering na borda entre seções.
     const sections = document.querySelectorAll('section');
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible'); // Faz a seção aparecer
-            } else {
-                entry.target.classList.remove('visible'); // Opcional: faz desaparecer ao sair (para repetição de animação)
+            if (entry.intersectionRatio >= 0.2) {
+                // Aparece assim que 20% da seção estiver visível
+                entry.target.classList.add('visible');
+            } else if (entry.intersectionRatio <= 0.1) {
+                // Some quando restar ≤10% visível, para que a animação de saída seja percebida
+                entry.target.classList.remove('visible');
             }
         });
     }, {
-        threshold: 0.3, // Ativa quando 30% da seção entra na viewport
+        threshold: [0.1, 0.2], // Observa nos pontos de 10% e 20% de visibilidade
     });
 
     // Observa todas as seções para o efeito de surgimento
