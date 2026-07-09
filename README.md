@@ -8,8 +8,6 @@ Landing page responsiva com o tema Starbucks, desenvolvida com metodologia mobil
 
 [![Demonstração online](https://img.shields.io/badge/demonstra%C3%A7%C3%A3o-online-2EA44F?style=for-the-badge)](https://otavio-2507.github.io/Starbucks/)
 
-[![Prévia da página](docs/preview.webp)](https://otavio-2507.github.io/Starbucks/)
-
 ## Visão geral
 
 O projeto reproduz uma página promocional no estilo da marca Starbucks, construída primeiro para telas pequenas e progressivamente adaptada para desktop. A organização do CSS separa variáveis de design (cores, tipografia), navegação e estilos gerais em arquivos próprios, e as animações de entrada e interação foram escritas manualmente, sem bibliotecas.
@@ -46,15 +44,13 @@ Abra o arquivo `index.html` no navegador. As dependências são carregadas via C
 ```
 Starbucks/
 ├── index.html              Página única
-├── src/
-│   ├── css/
-│   │   ├── variables.css   Tokens de design (cores, tipografia)
-│   │   ├── navbar.css      Estilos da navegação
-│   │   └── styles.css      Estilos gerais e seções
-│   ├── images/             Produtos, logos e fundos
-│   └── javascript/         Interações
-└── docs/
-    └── preview.webp        Imagem de prévia do README
+└── src/
+    ├── css/
+    │   ├── variables.css   Tokens de design (cores, tipografia)
+    │   ├── navbar.css      Estilos da navegação
+    │   └── styles.css      Estilos gerais e seções
+    ├── images/             Produtos, logos e fundos
+    └── javascript/         Interações
 ```
 
 ## Referências
