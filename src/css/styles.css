@@ -553,15 +553,26 @@ footer {
        quase se encostam, em 1855px sobrava folga demais. O termo de
        altura evita que o topo do copo passe por baixo do header fixo
        (o único limite real — a base pode ultrapassar a costura, o
-       copo é feito para atravessá-la). O termo antigo (130svh - 330px)
-       era fraco demais: em janelas comuns (~950-1000px de altura, já
-       descontada a barra do navegador) ele travava o copo bem abaixo
-       do que a largura permitia, e o teto de 1040px fazia o copo
-       encolher, em proporção à tela, em monitores largos (2560px+).
-       Recalibrado com margem de segurança medida empiricamente contra
-       o header em cada altura crítica (760/900/945/1000/1040/1300px),
-       e o teto subiu para acompanhar telas grandes. */
-    --cup-w: clamp(420px, min(80vw - 500px, 127svh - 294px), 1200px);
+       copo é feito para atravessá-la).
+
+       A relação entre altura da viewport e espaço vertical seguro NÃO
+       é linear, então uma reta única erra num dos dois extremos:
+
+       - De ~600 a ~800px de altura (notebooks com o Chrome maximizado,
+         não a resolução cheia da tela — ex.: tela de 1366x768 renderiza
+         viewport de ~657px de altura), o texto do título/descrição
+         força #home a crescer além do min-height e "absorve" o ganho
+         de altura da janela: o espaço realmente seguro fica quase
+         parado por ali (medido: ~747-767px em notebooks de 1280 a
+         1536px de largura). Por isso o piso de 700px.
+       - De ~900px para cima, o texto já não estoura #home e o espaço
+         disponível volta a crescer quase 1:1 com a janela — daí a reta
+         (137,1svh - 397px) assumir o controle a partir de ~800px.
+
+       Sem esse piso, a fórmula linear antiga (130svh - 330px) media
+       bem o segmento de cima mas ficava bem abaixo do seguro no de
+       baixo — exatamente onde ficam notebooks mais antigos/menores. */
+    --cup-w: clamp(420px, min(80vw - 500px, max(700px, 137.1svh - 397px)), 1200px);
     min-height: 100svh;
     display: flex;
     align-items: center;
