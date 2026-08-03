@@ -1,140 +1,200 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Referências aos elementos da navegação
+document.addEventListener('DOMContentLoaded', function () {
+
+    /* =============================================================
+       MENU MOBILE
+       ============================================================= */
+    const header = document.getElementById('header');
     const mobileBtn = document.querySelector('.btn-mobile');
     const navLinks = document.getElementById('nav-links');
-    const navLinks_a = document.querySelectorAll('#nav-links a');
-    const icon = document.querySelector('.btn-mobile i');
+    const mobileIcon = mobileBtn.querySelector('i');
 
-    let isScrolling = false; // Flag para evitar que o menu active mude durante a rolagem suave
+    function setMenu(open) {
+        navLinks.classList.toggle('show', open);
+        mobileBtn.setAttribute('aria-expanded', String(open));
+        mobileBtn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+        mobileIcon.classList.toggle('fa-times', open);
+        mobileIcon.classList.toggle('fa-bars', !open);
+    }
 
-    // Menu mobile: Abre/fecha a lista de links e troca o ícone
     mobileBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('show');
-        icon.classList.toggle('fa-times'); // Ícone de fechar (X)
-        icon.classList.toggle('fa-bars'); // Ícone sanduíche
+        setMenu(!navLinks.classList.contains('show'));
     });
 
-    // Função para ativar visualmente o item do menu correspondente à seção
+    // Fecha o menu ao escolher um destino ou apertar Esc
+    navLinks.addEventListener('click', (e) => {
+        if (e.target.closest('a')) setMenu(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('show')) {
+            setMenu(false);
+            mobileBtn.focus();
+        }
+    });
+
+    /* =============================================================
+       LINK ATIVO + HEADER AO ROLAR
+       Um único handler de scroll, agendado por requestAnimationFrame.
+       ============================================================= */
+    const navAnchors = Array.from(document.querySelectorAll('#nav-links a'));
+    const sections = Array.from(document.querySelectorAll('main section[id]'));
+
     function setActiveMenuItem(sectionId) {
-        // Remove a classe 'active' de todos os links
-        navLinks_a.forEach(link => {
-            link.classList.remove('active');
-        });
-
-        // Adiciona a classe 'active' ao link que corresponde ao ID da seção
-        const activeLink = document.querySelector(`#nav-links a[href="#${sectionId}"]`);
-        if (activeLink) {
-            activeLink.classList.add('active');
-        }
-    }
-
-    // Função para lidar com cliques em links internos (rolagem suave)
-    function handleNavClick(e) {
-        e.preventDefault();
-
-        const href = this.getAttribute('href'); // Obtém o hash (ex: "#home")
-        const targetId = href.substring(1);     // Obtém o ID (ex: "home")
-        const targetElement = document.getElementById(targetId);
-
-        if (!targetElement) return;
-
-        // Verifica a flag para evitar conflito durante a animação de scroll
-        if (!isScrolling) {
-            isScrolling = true;
-
-            // Rola suavemente para a seção
-            targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-
-            // Atualiza o item ativo do menu imediatamente
-            setActiveMenuItem(targetId);
-
-            // Reseta a flag após a rolagem (duração aproximada da animação)
-            setTimeout(() => {
-                isScrolling = false;
-            }, 1000);
-        }
-    }
-
-    // Seleciona todos os links internos (tanto na lista de navegação quanto no logo)
-    const internalLinks = document.querySelectorAll(
-        '#nav-links a, #header a[href^="#"]:not([href="#"])'
-    );
-
-    // Adiciona o listener de clique a todos os links internos
-    internalLinks.forEach(link => {
-        link.addEventListener('click', handleNavClick);
-    });
-
-    // IntersectionObserver para ativar o menu ao rolar
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            // Se a seção estiver visível e não estivermos rolando via clique:
-            if (entry.isIntersecting && !isScrolling) {
-                setActiveMenuItem(entry.target.id);
-            }
-        });
-    }, {
-        threshold: 0.5 // Ativa quando 50% da seção está visível
-    });
-
-    // Observa todas as seções para a mudança de menu
-    document.querySelectorAll('section').forEach(section => {
-        observer.observe(section);
-    });
-
-    // IntersectionObserver para o efeito de surgimento (Adiciona a classe 'visible')
-    // Histerese: aparece com 20% visível, some com ≤10% visível.
-    // O gap entre 10% e 20% evita o flickering na borda entre seções.
-    const sections = document.querySelectorAll('section');
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.intersectionRatio >= 0.2) {
-                // Aparece assim que 20% da seção estiver visível
-                entry.target.classList.add('visible');
-            } else if (entry.intersectionRatio <= 0.1) {
-                // Some quando restar ≤10% visível, para que a animação de saída seja percebida
-                entry.target.classList.remove('visible');
-            }
-        });
-    }, {
-        threshold: [0.1, 0.2], // Observa nos pontos de 10% e 20% de visibilidade
-    });
-
-    // Observa todas as seções para o efeito de surgimento
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-
-    // Efeito de Header no Scroll
-    const header = document.querySelector('header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
-    // OBS: O bloco de código abaixo sobre novidades ('novidadeObserver') parece ser redundante com o 'sectionObserver' acima.
-    // Ele foi mantido aqui, mas em um projeto real, você usaria apenas o 'sectionObserver' para todas as seções.
-    const novidadesSection = document.querySelector('#products');
-
-    const novidadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                novidadesSection.classList.add('visible');
+        navAnchors.forEach(link => {
+            const isActive = link.getAttribute('href') === '#' + sectionId;
+            link.classList.toggle('active', isActive);
+            if (isActive) {
+                link.setAttribute('aria-current', 'true');
             } else {
-                novidadesSection.classList.remove('visible');
+                link.removeAttribute('aria-current');
             }
         });
-    }, {
-        threshold: 1.0,  // Ativa quando 100% da seção está visível
+    }
+
+    function onScroll() {
+        header.classList.toggle('scrolled', window.scrollY > 40);
+
+        // A seção ativa é a última cujo topo já passou de 35% da viewport.
+        const line = window.scrollY + window.innerHeight * 0.35;
+        let current = sections[0];
+        for (const section of sections) {
+            if (section.offsetTop <= line) current = section;
+        }
+        if (current) setActiveMenuItem(current.id);
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            onScroll();
+            ticking = false;
+        });
+    }, { passive: true });
+
+    onScroll();
+
+    /* =============================================================
+       ENTRADA DOS ELEMENTOS
+       Um só gesto: sobe, desfoca e assenta. Tudo que entra na tela
+       é revelado uma vez e nunca mais escondido.
+       ============================================================= */
+    const revealTargets = Array.from(document.querySelectorAll('[data-reveal]'));
+
+    function revealAll() {
+        revealTargets.forEach(el => el.classList.add('revealed'));
+    }
+
+    if (!('IntersectionObserver' in window)) {
+        revealAll();
+    } else {
+        const revealObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('revealed');
+                obs.unobserve(entry.target);
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+        revealTargets.forEach(el => revealObserver.observe(el));
+
+        // Rede de segurança: nada fica invisível por falha do observer.
+        setTimeout(revealAll, 3000);
+    }
+
+    /* =============================================================
+       CARROSSEL DA HERO
+       As miniaturas e as setas trocam o copo e o nome vertical.
+       ============================================================= */
+    const heroSlides = [
+        { img: 'src/images/products/7.png', nome: 'Tropical', alt: 'Refresco tropical gelado com chantilly' },
+        { img: 'src/images/products/1.png', nome: 'Chocolate', alt: 'Bebida gelada de chocolate com chantilly e raspas' },
+        { img: 'src/images/products/4.png', nome: 'Manga', alt: 'Bebida gelada de manga com chantilly e calda' },
+        { img: 'src/images/products/5.png', nome: 'Matcha', alt: 'Bebida gelada de matcha com chantilly' },
+        { img: 'src/images/products/2.png', nome: 'Morango', alt: 'Bebida gelada de morango com chantilly' }
+    ];
+
+    const heroImage = document.querySelector('.home-image');
+    const heroThumbs = Array.from(document.querySelectorAll('.hero-thumb'));
+    const heroWords = Array.from(document.querySelectorAll('.hero-word span'));
+    const heroStatus = document.querySelector('[role="status"]');
+    const heroFav = document.querySelector('.hero-fav');
+    let heroIndex = 0;
+
+    function showSlide(index) {
+        heroIndex = (index + heroSlides.length) % heroSlides.length;
+        const slide = heroSlides[heroIndex];
+
+        heroImage.src = slide.img;
+        heroImage.alt = slide.alt;
+        heroWords.forEach(word => { word.textContent = slide.nome; });
+        heroThumbs.forEach((thumb, i) => thumb.classList.toggle('is-active', i === heroIndex));
+
+        // trocar de bebida zera o favorito — ele pertence à bebida, não ao botão
+        heroFav.setAttribute('aria-pressed', 'false');
+        heroFav.setAttribute('aria-label', `Salvar ${slide.nome} nos favoritos`);
+
+        heroStatus.textContent = slide.nome;
+
+        // reinicia a entrada do copo para dar peso à troca
+        heroImage.classList.remove('is-swapping');
+        void heroImage.offsetWidth;
+        heroImage.classList.add('is-swapping');
+    }
+
+    if (heroImage && heroThumbs.length) {
+        heroThumbs.forEach(thumb => {
+            thumb.addEventListener('click', () => showSlide(Number(thumb.dataset.slide)));
+        });
+
+        document.querySelectorAll('.hero-arrow').forEach(arrow => {
+            arrow.addEventListener('click', () => showSlide(heroIndex + Number(arrow.dataset.dir)));
+        });
+
+        heroFav.addEventListener('click', () => {
+            const on = heroFav.getAttribute('aria-pressed') === 'true';
+            heroFav.setAttribute('aria-pressed', String(!on));
+        });
+    }
+
+    /* =============================================================
+       FILTRO DO MENU
+       ============================================================= */
+    const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+    const productCards = Array.from(document.querySelectorAll('.product-card'));
+    const emptyState = document.querySelector('.products-empty');
+
+    function applyFilter(value) {
+        let visible = 0;
+
+        productCards.forEach(card => {
+            const match = value === 'all' || card.dataset.category === value;
+            card.hidden = !match;
+            if (match) {
+                card.classList.add('revealed');
+                visible++;
+            }
+        });
+
+        filterButtons.forEach(button => {
+            const isOn = button.dataset.filter === value;
+            button.classList.toggle('active', isOn);
+            button.setAttribute('aria-pressed', String(isOn));
+        });
+
+        if (emptyState) emptyState.hidden = visible > 0;
+    }
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => applyFilter(button.dataset.filter));
     });
 
-    // novidadeObserver.observe(novidadesSection); // Linha comentada pois já é observada pelo sectionObserver
-
-    // Filtros são apenas ilustrativos - sem funcionalidade
+    const emptyReset = document.querySelector('.products-empty .link-btn');
+    if (emptyReset) {
+        emptyReset.addEventListener('click', () => {
+            applyFilter('all');
+            document.querySelector('.menu-filters .filter-btn').focus();
+        });
+    }
 });

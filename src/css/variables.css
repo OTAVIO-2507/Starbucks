@@ -1,36 +1,69 @@
 :root {
-    /* Neutrals - Sophisticated Grayscale */
-    --color-neutral-0: #ffffff;
-    --color-neutral-1: #f7f3f0;
-    /* Light cream */
-    --color-neutral-2: #e9e0d9;
-    --color-neutral-3: #d1c1b5;
-    --color-neutral-4: #a89385;
-    --color-neutral-5: #7c6a5e;
-    --color-neutral-6: #54463d;
-    --color-neutral-7: #2d241f;
-    --color-neutral-8: #1a1614;
-    --color-neutral-9: #000000;
+    /* --- GROUND: branco e mints ------------------------------------ */
+    --white: #ffffff;
+    --mint-50: #f5faf7;
+    --mint-100: #e9f3ed;
+    --mint-200: #d5e7dc;
+    --mint-300: #b4d5c3;
+    --mint-400: #8bbca2;
+    --mint-500: #5fa484;
 
-    /* Starbucks Greens - Vibe Brewora */
-    --color-primary-1: #00704a;
-    --color-primary-2: #005a3c;
-    --color-primary-3: #1e3932;
-    --color-vibrant-green: #0a4d34;
-    /* Darker green for hero background */
+    /* --- CAMPO VERDE ----------------------------------------------- */
+    --green-500: #00875a;
+    --green-600: #00704a;
+    /* verde Starbucks */
+    --green-700: #045c3d;
+    --green-800: #1e3932;
+    /* verde profundo Starbucks */
+    --green-900: #0d2620;
 
-    /* Accents */
-    --color-secundary-1: #d4ad66;
-    /* Elegant Gold/Brass */
-    --color-accent-red: #c82333;
+    /* --- HERO: campo escuro + painel verde claro ------------------- */
+    --ink-950: #0b1e19;
+    --green-panel: #0f9d63;
+    --green-bright: #2ecb85;
+    --on-dark-soft: #a9c4b8;
+    --heart: #e5484d;
 
-    /* Effects */
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.3);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-    --premium-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    --transition-standard: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* --- TINTA (sobre fundo claro) --------------------------------- */
+    --ink-900: #10241e;
+    --ink-700: #35544a;
+    --ink-500: #55766a;
 
-    /* Spacing */
-    --section-padding: 80px 4%;
+    /* --- TINTA (sobre fundo verde) --------------------------------- */
+    --on-green: #ffffff;
+    --on-green-soft: #cfe6d8;
+    --on-green-faint: rgba(255, 255, 255, 0.14);
+
+    /* --- ACENTOS ---------------------------------------------------- */
+    --star: #e2a52c;
+    --bean: #5b3a24;
+
+    /* --- FRUTAS VERMELHAS: acento exclusivo da seção de sabores --- */
+    --berry-1: #f2568c;
+    /* destaque do título */
+    --berry-deep: #c9203f;
+    /* fundo do selo: o tom acima é claro demais para texto branco */
+
+    /* --- COSTURA CHEVRON -------------------------------------------- */
+    --seam: clamp(34px, 6vw, 104px);
+    --apex-up: 66%;
+    --apex-down: 34%;
+
+    /* --- ELEVAÇÃO --------------------------------------------------- */
+    --shadow-sm: 0 2px 6px rgba(16, 36, 30, .05), 0 8px 20px rgba(16, 36, 30, .05);
+    --shadow-md: 0 6px 14px rgba(16, 36, 30, .06), 0 22px 44px rgba(16, 36, 30, .09);
+    --shadow-lg: 0 12px 24px rgba(16, 36, 30, .08), 0 40px 80px rgba(16, 36, 30, .14);
+    --shadow-green: 0 10px 22px rgba(0, 112, 74, .18), 0 26px 50px rgba(0, 112, 74, .18);
+
+    /* --- MOVIMENTO --------------------------------------------------- */
+    --ease-out: cubic-bezier(.16, 1, .3, 1);
+    --transition-standard: all .35s cubic-bezier(.16, 1, .3, 1);
+
+    /* --- RITMO ------------------------------------------------------- */
+    --gutter: clamp(20px, 5vw, 64px);
+    --band-pad: clamp(72px, 9vw, 132px);
+    --maxw: 1280px;
+    --radius-lg: 32px;
+    --radius-md: 20px;
+    --radius-pill: 999px;
 }
