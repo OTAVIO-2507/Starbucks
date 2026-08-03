@@ -550,9 +550,18 @@ footer {
        telas largas e o copo deixava de cruzar a costura */
     --panel-w: min(32%, 430px);
     /* cresce mais rápido que a viewport: em 1240px o título e o copo
-       quase se encostam, em 1855px sobrava folga demais. O teto em
-       svh impede que o copo estoure a altura da dobra em telas baixas. */
-    --cup-w: clamp(420px, min(80vw - 500px, 130svh - 330px), 1040px);
+       quase se encostam, em 1855px sobrava folga demais. O termo de
+       altura evita que o topo do copo passe por baixo do header fixo
+       (o único limite real — a base pode ultrapassar a costura, o
+       copo é feito para atravessá-la). O termo antigo (130svh - 330px)
+       era fraco demais: em janelas comuns (~950-1000px de altura, já
+       descontada a barra do navegador) ele travava o copo bem abaixo
+       do que a largura permitia, e o teto de 1040px fazia o copo
+       encolher, em proporção à tela, em monitores largos (2560px+).
+       Recalibrado com margem de segurança medida empiricamente contra
+       o header em cada altura crítica (760/900/945/1000/1040/1300px),
+       e o teto subiu para acompanhar telas grandes. */
+    --cup-w: clamp(420px, min(80vw - 500px, 127svh - 294px), 1200px);
     min-height: 100svh;
     display: flex;
     align-items: center;
