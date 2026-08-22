@@ -10,7 +10,8 @@ Landing page responsiva com o tema Starbucks, desenvolvida com metodologia mobil
 
 ![Prévia do projeto](src/images/preview.jpg)
 
-**[Ver Projeto](https://otavio-2507.github.io/Starbucks/)**
+[![Ver projeto](https://img.shields.io/badge/Ver_projeto-3642B5?style=for-the-badge&logo=googlechrome&logoColor=white)](https://otavio-2507.github.io/Starbucks/)
+[![Código](https://img.shields.io/badge/C%C3%B3digo-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/OTAVIO-2507/Starbucks)
 
 </div>
 
